@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notium</title>
+    <link rel="icon" href="./images/logo.png">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <div class="logo-icon"><img src="./images/logo.png" class="logo-icon" alt="Logó"></div>
+                <div class="logo-text">Notium</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#infok">Infók</a></li>
+                <li><a href="#funkciok">Funkciók</a></li>
+                <li><a href="./login.html">Bejelentkezés</a></li>
+                <li><a href="./register.html" class="reg">Regisztráció</a></li>
+            </ul>
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-nav" id="mobileNav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#infok">Infók</a></li>
+                <li><a href="#funkciok">Funkciók</a></li>
+                <li><a href="./login.html">Bejelentkezés</a></li>
+                <li><a href="./register.html" class="reg">Regisztráció</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-bg-animation">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+            <div class="geo-shape geo-1"></div>
+            <div class="geo-shape geo-2"></div>
+            <div class="particles">
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>Notium</h1>
+            <p class="subtitle">Jegyzetek & teendők leírása</p>
+            <div class="cta-buttons">
+                <a href="./register.html" class="cta-primary">Regisztráció</a>
+                <a href="./login.html" class="cta-secondary">Bejelentkezés</a>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-card">
+                    <span class="stat-number" id="daysOnline"></span><!--Real time napok száma-->
+                    <span class="stat-label">Napja</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="noteCount"></span><!--real time jegyzetek számát összesen-->
+                    <span class="stat-label">Jegyzet</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="infok" class="fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Információk és Funkciók</h2>
+                <p class="section-subtitle">Hozz létre jegyzeteket és díszítsd a szöveget</p>
+            </div>
+        </div>
+        <div class="container section-header my-5">
+            <h2 class="section-subtitle">Egyszerűen és egyértelműen használható kinézet</h2>
+            <img src="./images/bemutato1.png" class="kep my-5">
+        </div>
+        <div class="container section-header" style="margin-top: 7rem;">
+            <h2 class="section-subtitle">Sok hasznos funkció a kinézet testreszabásához:</h2>
+            <ul>
+                <li class="section-subtitle functions">5 fajta betűszín</li>
+                <li class="section-subtitle functions">Dőlt, Félkövér, Aláhúzás</li>
+                <li class="section-subtitle functions">4 fajta betűtípus</li>
+                <li class="section-subtitle functions">4 nagyságú betűméret</li>
+            </ul>
+
+            <img src="./images/bemutato2.png" class="kep2 my-5">
+        </div>
+    </section>
+    <section id="funkciok" class="fade-in">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Készenálsz a jegyzetelésre?</h2>
+                <a href="#home" class="cta-secondary">Vissza a tetejére</a>
+            </div>
+
+            <div class="contact-content">
+            </div>
+        </div>
+    </section>
+
+    <script src="./index.js"></script>
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+        import { collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+        // NAPOK SZÁMOLÁSA
+        const startDate = new Date("2026-03-10");
+        const today = new Date();
+        const diffTime = Math.abs(today - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        document.getElementById('daysOnline').innerText = diffDays;
+
+        // JEGYZETEK SZÁMA
+        async function updateStats() {
+            try {
+                const noteColl = collection(db, "notes");
+                const noteSnapshot = await getCountFromServer(noteColl);
+                document.getElementById('noteCount').innerText = noteSnapshot.data().count;
+
+            } catch (err) {
+                console.error("Statisztika hiba:", err);
+                document.getElementById('noteCount').innerText = "0";
+            }
+        }
+
+        updateStats();
+    </script>
+</body>
+
+</html>

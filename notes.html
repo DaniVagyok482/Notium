@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jegyzeteim</title>
+    <link rel="icon" href="./images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body class="notes-body">
+    <div id="myPopup" class="popup-overlay">
+        <div class="popup-content">
+            <a href="https://linuxatlas.linkpc.net" target="_blank">
+                <img src="./images/popuplinuxreklam.png" alt="Reklám: Linux Atlas">
+            </a>
+            <button onclick="closePopup()">Bezárás</button>
+        </div>
+    </div>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Jegyzetek</h3>
+            <div id="userEmailDisplay"
+                style="font-size: 0.8em; color: #3498db; margin-top: 1px; word-break: break-all;">
+                Betöltés...
+            </div>
+        </div>
+        <button class="new-btn" id="newBtn">+ Új jegyzet</button>
+        <div id="notesList"></div>
+        <button class="logout-btn" id="logoutBtn">Kijelentkezés</button>
+    </div>
+    <div class="main-content">
+        <div class="title-input-container hatter">
+            <input type="text" id="noteTitle" placeholder="Jegyzet címe...">
+        </div>
+        <div class="toolbar hatter">
+            <button onclick="format('bold')"><b>B</b></button>
+            <button onclick="format('italic')"><i>I</i></button>
+            <button onclick="format('underline')"><u>U</u></button>
+            <div style="width: 1px; height: 20px; background: #ccc; margin: 0 5px;"></div>
+            <select onchange="format('fontName', this.value)">
+                <option value="Arial">Arial</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Courier New">Courier</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <select onchange="format('fontSize', this.value)">
+                <option value="1">Kicsi</option>
+                <option value="3">Normál</option>
+                <option value="5">Nagy</option>
+                <option value="8">Extra Nagy</option>
+            </select>
+            <select onchange="format('foreColor', this.value)">
+                <option value="#000000">Fekete</option>
+                <option value="#ffffff">Fehér</option>
+                <option value="#ff0000">Piros</option>
+                <option value="#0000ff">Kék</option>
+                <option value="#27ae60">Zöld</option>
+            </select>
+        </div>
+        <div id="editor" contenteditable="true"></div>
+        <div class="save-bar hatter">
+            <button class="save-btn" id="saveBtn">Mentés</button>
+        </div>
+    </div>
+
+    <script type="module" src="notes.js"></script>
+    <script>
+        setTimeout(() => {
+            document.getElementById('myPopup').style.display = 'block';
+        }, 2000);
+
+        function closePopup() {
+            document.getElementById('myPopup').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

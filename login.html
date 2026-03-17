@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bejelentkezés</title>
+    <title>Notium regisztráció</title>
+    <link rel="icon" href="./images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="logo">
+                <div class="logo-icon"><img src="./images/logo.png" class="logo-icon" alt="Logó"></div>
+                <div class="logo-text">Notium</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="./login.html">Bejelentkezés</a></li>
+                <li><a href="./register.html" class="reg">Regisztráció</a></li>
+            </ul>
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-nav" id="mobileNav">
+            <ul>
+                <li><a href="login.html">Bejelentkezés</a></li>
+                <li><a href="register.html" class="reg">Regisztráció</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section id="home" class="hero">
+        <div class="hero-bg-animation">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+            <div class="geo-shape geo-1"></div>
+            <div class="geo-shape geo-2"></div>
+            <div class="particles">
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>Bejelentkezés</h1>
+            <label for="email">Email cím:</label>
+            <input type="email" id="email" name="email" placeholder="valami@gmail.com" class="inpt">
+            <label for="password">Jelszó</label>
+            <input type="password" id="password" placeholder="Jelszó" class="inpt">
+            <div class="cta-buttons">
+                <button id="loginBtn" class="reg cta-primary">Belépés</button>
+            </div>
+            <div>
+                <p>Nincs fiókod? <a class="link" href="register.html">Regisztrálj itt</a></p>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        import { auth } from "./firebase-config.js";
+        import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+        document.getElementById('loginBtn').onclick = async () => {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            try {
+                await signInWithEmailAndPassword(auth, email, pass);
+                window.location.href = "notes.html";
+            } catch (err) { alert("Hiba: " + err.message); }
+        };
+    </script>
+</body>
+
+</html>
