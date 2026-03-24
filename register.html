@@ -60,7 +60,11 @@
             <label for="email">Email cím:</label>
             <input type="email" id="email" name="email" placeholder="Email cím" class="inpt">
             <label for="password">Jelszó:</label>
-            <input type="password" id="password" name="password" placeholder="Jelszó" class="inpt inpt-wrap">
+            <div class="password-wrapper">
+                <input type="password" id="password" name="password" placeholder="Jelszó" class="inpt inpt-wrap">
+                <button type="button" id="toggleBtn">
+                    <span id="eyeIcon">👁️</span>
+            </div>
             <div class="cta-buttons">
                 <button id="regBtn" class="reg cta-primary">Fiók létrehozása</button>
             </div>
@@ -81,6 +85,7 @@
             } catch (err) { alert("Hiba: " + err.message); }
         };
     </script>
+    <script src="register.js"></script>
 </body>
 
 </html>
